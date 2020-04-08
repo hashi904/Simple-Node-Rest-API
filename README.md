@@ -1,8 +1,10 @@
 # READ ME 
 ## If you start app 
-nodemon index.js
+node index.js
 
-And you should access localhost:7700.
+(debug: nodemon index.js)
+
+And you can access localhost:7700.
 
 
 ## Using Library
@@ -20,14 +22,8 @@ npm install jsonwebtoken
 
 
 ## debbug 
-node --inspect-brk index.
+node --inspect-brk index.js
 
-## 
-app名のxmlを作成する
+## config 
 
-読みに行ってほしいxmlを選択する
-
-xmlの中構成
-
-queries -- post 
-        -- get 
+token keeps 5 minutes

@@ -16,8 +16,8 @@ const user_authenitcation = (request, response) => {
     const {user, pass} = request.body;
     if(user === authenticated_user.user && pass === authenticated_user.pass){
         //const token = jwt.sign(user, 'private', {algorithm: 'RS256', expiresIn: 120});
-        //token keeps 5 minutes
-        const token = jwt.sign({ user: user, iat: Math.floor(Date.now() / 1000) - 60*5}, 'kokonihananndemoireteiiyo');
+        //token keeps 1 minutes(60*5)
+        const token = jwt.sign({ user: user, expiresIn: "1ms"}, 'kokonihananndemoireteiiyo');
         response.json({
             token: token
         })
@@ -30,12 +30,21 @@ const user_authenitcation = (request, response) => {
 
 // get item 
 const getItem = (request, response) => {
-    pool.query("SELECT * FROM \"apps_schema\".\"apps_table\"", (error, results) => {
-        if(error){
-            throw error;
+    const token = request.body.token;
+    jwt.verify(token, 'kokonihananndemoireteiiyo', function(err, decoded) {
+        if (err) {
+            console.log(err);
+            return response.json({
+                msg: "Invalid token"
+            })  
         }
-        response.status(200).json(results.rows)
-    })
+        pool.query("SELECT * FROM \"apps_schema\".\"apps_table\"", (error, results) => {
+            if(error){
+                throw error;
+            }
+            response.status(200).json(results.rows)
+        })
+    });
 }
 
 //post item
@@ -48,20 +57,29 @@ const postItem = (request, response) => {
 	}
 
     // received json variable
-    //post json example {shorttext: "hogehoge"}
-    // not so good if you send same message, this module responses error
-    const text = request.body.text;
-    //you must not permit empty 
-    if(!text){
-        throw("not empty")
-    }
-
-    pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (error, results) => {
-        if(error){
-            throw error;
+    //post json example {token: "hoge", shorttext: "hogehoge"}
+    const {token,text} = request.body;
+    jwt.verify(token, 'kokonihananndemoireteiiyo', function(err, decoded) {
+        if (err) {
+            console.log(err);
+            return response.json({
+                msg: "Invalid token"
+            })  
         }
-        response.status(200).json(results.rows)
-    })
+
+        //we don't permit empty 
+        if(!text){
+            throw("not empty")
+        }
+
+        pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (error, results) => {
+            if(error){
+                throw error;
+            }
+            response.status(200).json(results.rows)
+        })
+    
+    });
 }
 
 //setting exports module to read vriable module from index.js
