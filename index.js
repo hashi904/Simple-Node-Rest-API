@@ -18,6 +18,7 @@ const port = process.env.PORT || 7700;
 const queries = require('./queries');
 
 //setting request
+app.post('/user_authentication/', queries.user_authenitcation);
 app.get('/get_item/', queries.getItem);
 app.post('/post_item/', queries.postItem);
 
