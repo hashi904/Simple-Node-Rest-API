@@ -15,7 +15,9 @@ const user_authenitcation = (request, response) => {
     const authenticated_user = {user: "user0", pass: "pass0"}
     const {user, pass} = request.body;
     if(user === authenticated_user.user && pass === authenticated_user.pass){
-        const token = "hogehoge";
+        //const token = jwt.sign(user, 'private', {algorithm: 'RS256', expiresIn: 120});
+        //token keeps 5 minutes
+        const token = jwt.sign({ user: user, iat: Math.floor(Date.now() / 1000) - 60*5}, 'kokonihananndemoireteiiyo');
         response.json({
             token: token
         })
