@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-
+var jwt = require("jsonwebtoken");
 //database connection setting
 const pool = new Pool({
     user: 'root',
@@ -9,11 +9,28 @@ const pool = new Pool({
     port: 5432,
 })
 
+//user authenitication
+const user_authenitcation = (request, response) => {
+    //user information
+    const authenticated_user = {user: "user0", pass: "pass0"}
+    const {user, pass} = request.body;
+    if(user === authenticated_user.user && pass === authenticated_user.pass){
+        const token = "hogehoge";
+        response.json({
+            token: token
+        })
+        return
+    }
+    response.json({
+        msg: "Not collected user or password"
+    })
+}
+
 // get item 
 const getItem = (request, response) => {
     pool.query("SELECT * FROM \"apps_schema\".\"apps_table\"", (error, results) => {
         if(error){
-            throw error
+            throw error;
         }
         response.status(200).json(results.rows)
     })
@@ -39,7 +56,7 @@ const postItem = (request, response) => {
 
     pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (error, results) => {
         if(error){
-            throw error
+            throw error;
         }
         response.status(200).json(results.rows)
     })
@@ -47,6 +64,7 @@ const postItem = (request, response) => {
 
 //setting exports module to read vriable module from index.js
 module.exports = {
+    user_authenitcation,
     getItem,
     postItem
 }
