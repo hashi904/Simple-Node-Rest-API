@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Pool = require('pg').Pool
 var jwt = require("jsonwebtoken");
 //database connection setting
@@ -15,28 +16,26 @@ const user_authenitcation = (request, response) => {
     const authenticated_user = {user: "user0", pass: "pass0"}
     const {user, pass} = request.body;
     if(user === authenticated_user.user && pass === authenticated_user.pass){
-        //const token = jwt.sign(user, 'private', {algorithm: 'RS256', expiresIn: 120});
-        //token keeps 1 minutes(60*5)
-        const token = jwt.sign({ user: user, expiresIn: "1ms"}, 'kokonihananndemoireteiiyo');
+        //token keeps 5m. You can set m or s and so on.
+        const token = jwt.sign({user: user}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '5m'});
         response.json({
             token: token
         })
         return
     }
-    response.json({
-        msg: "Not collected user or password"
-    })
+    response.sendStatus(401)
 }
 
 // get item 
 const getItem = (request, response) => {
-    const token = request.body.token;
-    jwt.verify(token, 'kokonihananndemoireteiiyo', function(err, decoded) {
+    const authHeader = request.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]
+    if(token == null) return response.sendStatus(401)
+    //うまく認証できていない　おそらくpayloadだけ見て合っていれば通している 発行したtokenの持続時間の設定が必要
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
         if (err) {
             console.log(err);
-            return response.json({
-                msg: "Invalid token"
-            })  
+            return response.sendStatus(403)
         }
         pool.query("SELECT * FROM \"apps_schema\".\"apps_table\"", (error, results) => {
             if(error){
