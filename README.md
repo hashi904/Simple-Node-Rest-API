@@ -26,4 +26,4 @@ node --inspect-brk index.js
 
 ## config 
 
-token keeps 5 minutes
+token keeps 5 minutes 
