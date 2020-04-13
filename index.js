@@ -12,6 +12,9 @@ app.use(cors())
 const user_authenticationRoute = require('./routes/user_authentication');
 app.use('/user_authentication', user_authenticationRoute);
 
+const exmaple_query = require('./routes/example');
+app.use('/example', exmaple_query);
+
 // setting port (=7700)
 const port = process.env.PORT || 7700;
 
