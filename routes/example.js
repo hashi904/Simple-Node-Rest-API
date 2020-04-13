@@ -33,18 +33,36 @@ router.get('/', (req, res)=>{
     });
 });
 
-// router.post('/', (req, res) => {
-//     const post = new Post({
-//         title: req.body.title,
-//         description: req.body.description
-//     });
-//     try {
-//         const savedPost = await post.save();
-//         res.json(savedPost);
-//     } catch(err) {
-//         res.json({message: err});
-//     }
-// });
+router.post('/', (req, res) => {
+    // ID automatically creates using hexadecimal, and consists of 32 texts.
+    const original_text = 'ABCDEF0123456789';
+    let id = '';
+    for (let i = 0; i < 32; i++) {
+		id += original_text.charAt(Math.floor(Math.random() * original_text.length));
+	}
+
+    // get token from header
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    //get json example {shorttext: "hogehoge"}
+    const text = req.body.text;
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+        if (err) {
+            return response.sendStatus(403);
+        }
+        //we don't permit empty 
+        if(!text){
+            throw("not empty");
+        }
+        pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (error, results) => {
+            if(err){
+                throw err;
+            }
+            res.sendStatus(201);
+        })
+    });
+});
 
 // router.get('/:postId', (req, res)=>{
 //     try{
