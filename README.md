@@ -20,6 +20,8 @@ npm install xmldom
 
 npm install jsonwebtoken
 
+npm install cors
+
 
 ## debbug 
 node --inspect-brk index.js
