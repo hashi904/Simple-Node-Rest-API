@@ -15,10 +15,16 @@ const pool = new Pool({
     port: 5432,
 })
 
+//schema table を定義
+const schema_name = "";
+const table_name  = "";
+
 router.get('/', (req, res)=>{
+    // get token from header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if(token == null) return res.sendStatus(401);
+
     // token authentication
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
         if (err) {
@@ -44,9 +50,12 @@ router.post('/', (req, res) => {
     // get token from header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401);
 
     //get json example {shorttext: "hogehoge"}
     const text = req.body.text;
+
+    //token authentication
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
         if (err) {
             return response.sendStatus(403);
@@ -55,7 +64,7 @@ router.post('/', (req, res) => {
         if(!text){
             throw("not empty");
         }
-        pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (error, results) => {
+        pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (err, results) => {
             if(err){
                 throw err;
             }
@@ -64,23 +73,34 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.get('/:postId', (req, res)=>{
-//     try{
-//         const post = await Post.findById(req.params.postId)
-//         res.json(post);
-//     }catch(err){
-//         res.json({message: err});
-//     }
-// });
+router.delete('/:postId', (req, res)=>{
+    // get token from header
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401);
 
-// router.delete('/:postId', (req, res)=>{
-//     try{
-//         const removedPost = Post.remove({_id: req.params.postId});
-//         res.json(removedPost);
-//     }catch(err){
-//         res.json({message: err});
-//     }
-// });
+    //get from URI
+    delete_id = req.params.postId
+
+    // token authentication
+    try{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+            if (err) {
+                return res.sendStatus(403);
+            }
+            pool.query(`DELETE FROM \"apps_schema\".\"apps_table\" WHERE id = \'${delete_id}\'`, (err, results) => {
+                // id間違ったときの処理がうまく行かない idを間違っていてもそのままリクエストが通ってしまう　その場合DBの操作は行われない
+                if(err){
+                    console.log(err)
+                    res.json({message: err});
+                }
+                res.sendStatus(200);
+            })
+        });
+    }catch(err){
+        res.json({message: err});
+    }
+});
 
 // router.patch('/:postId', (req, res)=>{
 //     try{
