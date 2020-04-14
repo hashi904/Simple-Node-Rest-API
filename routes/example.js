@@ -13,7 +13,7 @@ const pool = new Pool({
     database: 'wepsdb',
     password: '',
     port: 5432,
-})
+});
 
 //schema table を定義
 const schema_name = "apps_schema";
@@ -35,7 +35,30 @@ router.get('/', (req, res)=>{
                 throw err;
             }
             res.status(200).json(results.rows);
-        })
+        });
+    });
+});
+
+router.get('/:postId', (req, res)=>{
+    // get token from header
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401);
+
+    //get from URI
+    postId = req.params.postId;
+
+    // token authentication
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+        if (err) {
+            return res.sendStatus(403);
+        }
+        pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
+            if(err){
+                throw err;
+            }
+            res.status(200).json(results.rows);
+        });
     });
 });
 
@@ -69,7 +92,7 @@ router.post('/', (req, res) => {
                 throw err;
             }
             res.sendStatus(201);
-        })
+        });
     });
 });
 
@@ -94,7 +117,7 @@ router.delete('/:postId', (req, res)=>{
                     res.json({message: err});
                 }
                 res.sendStatus(200);
-            })
+            });
         });
     }catch(err){
         res.json({message: err});
@@ -128,11 +151,11 @@ router.patch('/:postId', (req, res)=>{
                     res.json({message: err});
                 }
                 res.sendStatus(200);
-            })
+            });
         }); 
     }catch(err){
         res.json({message: err});
     }
-})
+});
 
 module.exports = router;
