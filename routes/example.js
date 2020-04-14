@@ -80,7 +80,7 @@ router.delete('/:postId', (req, res)=>{
     if(token == null) return res.sendStatus(401);
 
     //get from URI
-    delete_id = req.params.postId
+    postId = req.params.postId;
 
     // token authentication
     try{
@@ -88,10 +88,9 @@ router.delete('/:postId', (req, res)=>{
             if (err) {
                 return res.sendStatus(403);
             }
-            pool.query(`DELETE FROM \"apps_schema\".\"apps_table\" WHERE id = \'${delete_id}\'`, (err, results) => {
+            pool.query(`DELETE FROM \"apps_schema\".\"apps_table\" WHERE id = \'${postId}\'`, (err, results) => {
                 // id間違ったときの処理がうまく行かない idを間違っていてもそのままリクエストが通ってしまう　その場合DBの操作は行われない
                 if(err){
-                    console.log(err)
                     res.json({message: err});
                 }
                 res.sendStatus(200);
@@ -102,16 +101,38 @@ router.delete('/:postId', (req, res)=>{
     }
 });
 
-// router.patch('/:postId', (req, res)=>{
-//     try{
-//         const updatedPost = await Post.updateOne(
-//             {_id: req.params.postId},
-//             {$set: {title: req.body.title}}
-//         );
-//         res.json(updatedPost);
-//     }catch(err){
-//         res.json({message: err});
-//     }
-// })
+router.patch('/:postId', (req, res)=>{
+    // get token from header
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401);
+
+    //get from URI
+    postId = req.params.postId;
+
+    //get from json example {shorttext: "hogehoge"}
+    const text = req.body.text;
+
+    //token authentication
+    try{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+            if (err) {
+                return res.sendStatus(403);
+            }
+            //we don't permit empty 
+            if(!text){
+                throw("not empty");
+            }
+            pool.query(`UPDATE \"apps_schema\".\"apps_table\" SET text = \'${text}\' WHERE id = \'${postId}\'`, (err, results) => {
+                if(err){
+                    res.json({message: err});
+                }
+                res.sendStatus(200);
+            })
+        }); 
+    }catch(err){
+        res.json({message: err});
+    }
+})
 
 module.exports = router;
