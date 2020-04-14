@@ -1,6 +1,8 @@
 //example query file
+//reading .env file
 require('dotenv').config()
 
+// import library
 const express = require('express');
 const router = express.Router();
 const Pool = require('pg').Pool;
@@ -15,7 +17,7 @@ const pool = new Pool({
     port: 5432,
 });
 
-//schema table を定義
+//setting schema and table
 const schema_name = "apps_schema";
 const table_name  = "apps_table";
 
@@ -83,7 +85,7 @@ router.post('/', (req, res) => {
     const token = authHeader && authHeader.split(' ')[1];
     if(token == null) return res.sendStatus(401);
 
-    //get json example {shorttext: "hogehoge"}
+    //get json, example {shorttext: "hogehoge"}
     const text = req.body.text;
 
     //token authentication
@@ -124,7 +126,6 @@ router.delete('/:postId', (req, res)=>{
                 return res.sendStatus(403);
             }
             pool.query(`DELETE FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
-                // id間違ったときの処理がうまく行かない idを間違っていてもそのままリクエストが通ってしまう　その場合DBの操作は行われない
                 if(err){
                     res.json({message: err});
                 }

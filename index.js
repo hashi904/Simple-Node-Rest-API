@@ -8,7 +8,7 @@ const cors = require('cors');
 app.use(bodyParser.json());
 app.use(cors())
 
-//routes (if you want to add request, you must add routes)
+//routes (if you want to add requests, add routes)
 const user_authenticationRoute = require('./routes/user_authentication');
 app.use('/user_authentication', user_authenticationRoute);
 
