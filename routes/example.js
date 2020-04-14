@@ -26,17 +26,21 @@ router.get('/', (req, res)=>{
     if(token == null) return res.sendStatus(401);
 
     // token authentication
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
-        if (err) {
-            return res.sendStatus(403);
-        }
-        pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\"`, (err, results) => {
-            if(err){
-                throw err;
+    try{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+            if (err) {
+                return res.sendStatus(403);
             }
-            res.status(200).json(results.rows);
+            pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\"`, (err, results) => {
+                if(err){
+                    throw err;
+                }
+                res.status(200).json(results.rows);
+            });
         });
-    });
+    }catch(err){
+        res.json({message: err});
+    }
 });
 
 router.get('/:postId', (req, res)=>{
@@ -49,17 +53,21 @@ router.get('/:postId', (req, res)=>{
     postId = req.params.postId;
 
     // token authentication
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
-        if (err) {
-            return res.sendStatus(403);
-        }
-        pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
-            if(err){
-                throw err;
+    try{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+            if (err) {
+                return res.sendStatus(403);
             }
-            res.status(200).json(results.rows);
+            pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
+                if(err){
+                    throw err;
+                }
+                res.status(200).json(results.rows);
+            });
         });
-    });
+    }catch(err){
+        res.json({message: err});
+    }
 });
 
 router.post('/', (req, res) => {
@@ -79,21 +87,25 @@ router.post('/', (req, res) => {
     const text = req.body.text;
 
     //token authentication
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
-        if (err) {
-            return response.sendStatus(403);
-        }
-        //we don't permit empty 
-        if(!text){
-            throw("not empty");
-        }
-        pool.query(`INSERT INTO \"${schema_name}\".\"${table_name}\" VALUES ($1, $2)`,[id, text], (err, results) => {
-            if(err){
-                throw err;
+    try{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
+            if (err) {
+                return res.sendStatus(403);
             }
-            res.sendStatus(201);
+            //we don't permit empty 
+            if(!text){
+                throw("not empty");
+            }
+            pool.query(`INSERT INTO \"${schema_name}\".\"${table_name}\" VALUES ($1, $2)`,[id, text], (err, results) => {
+                if(err){
+                    throw err;
+                }
+                res.sendStatus(201);
+            });
         });
-    });
+    }catch(err){
+        res.json({message: err});
+    }
 });
 
 router.delete('/:postId', (req, res)=>{
