@@ -10,15 +10,19 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:7700/get_item/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY0MTY5NzAsImV4cCI6MTU4NjQxNzI3MH0.fCb5QBuaAevR_hrGwdZVeoM6fBM6ZIKooYfUqQXHwu4
+GET http://localhost:7700/example/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY3NzAzNDYsImV4cCI6MTU4Njc3MDY0Nn0.kxZe-m_RcbGEyXnM2aOegahQOvg_ItwA5z2OsGLdLdE
 
 
 ###
-POST http://localhost:7700/post_item/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY0MTcxMjUsImV4cCI6MTU4NjQxNzQyNX0.SPYBE8zHyWMguyCaNrRkaE-QN4h6h-GbnjJVl7y9BRI
+POST http://localhost:7700/example/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY3NjcyNzUsImV4cCI6MTU4Njc2NzU3NX0.Oja1x_rRQ_DApQSZ4AGPRM2No7q5uTn9QRX-ygDPhKA
 Content-Type: application/json
 
 {
-    "text": "success"
+    "text": "2023年"
 }
+
+###
+DELETE http://localhost:7700/example/9CA4DEC5E092EF90AE4020D/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY3NzA1MTMsImV4cCI6MTU4Njc3MDgxM30.NNhB64441-gSapmoA6XW2TggMbpBELeLjH2HLpWJJB8
