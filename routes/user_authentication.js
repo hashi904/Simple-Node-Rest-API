@@ -1,4 +1,5 @@
 //user_authentication
+//reading .env file
 require('dotenv').config()
 
 const express = require('express');
