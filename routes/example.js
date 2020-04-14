@@ -16,8 +16,8 @@ const pool = new Pool({
 })
 
 //schema table を定義
-const schema_name = "";
-const table_name  = "";
+const schema_name = "apps_schema";
+const table_name  = "apps_table";
 
 router.get('/', (req, res)=>{
     // get token from header
@@ -30,7 +30,7 @@ router.get('/', (req, res)=>{
         if (err) {
             return res.sendStatus(403);
         }
-        pool.query("SELECT * FROM \"apps_schema\".\"apps_table\"", (err, results) => {
+        pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\"`, (err, results) => {
             if(err){
                 throw err;
             }
@@ -64,7 +64,7 @@ router.post('/', (req, res) => {
         if(!text){
             throw("not empty");
         }
-        pool.query("INSERT INTO \"apps_schema\".\"apps_table\" VALUES ($1, $2)",[id, text], (err, results) => {
+        pool.query(`INSERT INTO \"${schema_name}\".\"${table_name}\" VALUES ($1, $2)`,[id, text], (err, results) => {
             if(err){
                 throw err;
             }
@@ -88,7 +88,7 @@ router.delete('/:postId', (req, res)=>{
             if (err) {
                 return res.sendStatus(403);
             }
-            pool.query(`DELETE FROM \"apps_schema\".\"apps_table\" WHERE id = \'${postId}\'`, (err, results) => {
+            pool.query(`DELETE FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
                 // id間違ったときの処理がうまく行かない idを間違っていてもそのままリクエストが通ってしまう　その場合DBの操作は行われない
                 if(err){
                     res.json({message: err});
@@ -123,7 +123,7 @@ router.patch('/:postId', (req, res)=>{
             if(!text){
                 throw("not empty");
             }
-            pool.query(`UPDATE \"apps_schema\".\"apps_table\" SET text = \'${text}\' WHERE id = \'${postId}\'`, (err, results) => {
+            pool.query(`UPDATE \"${schema_name}\".\"${table_name}\" SET text = \'${text}\' WHERE id = \'${postId}\'`, (err, results) => {
                 if(err){
                     res.json({message: err});
                 }
