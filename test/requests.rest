@@ -11,7 +11,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:7700/example/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY4NDg2NDIsImV4cCI6MTU4Njg0ODk0Mn0.l987GYLnC2Y_EDzOue7gjcV-RIdwXxT80qswiiOTyBA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY5NDE0NjAsImV4cCI6MTU4Njk0MTc2MH0.MyTuOOVvHmxSATZN-LJ_ZoieD9wLPxMaOwd2QV6M_tM
 
 ###
 
@@ -28,5 +28,14 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:7700/example/22152A85933D19A2DFE49E43543FA92C/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY4NDg2NDIsImV4cCI6MTU4Njg0ODk0Mn0.l987GYLnC2Y_EDzOue7gjcV-RIdwXxT80qswiiOTyBA
+PATCH http://localhost:7700/example/11C7D9C9B9175087A7A2F0FC37033349/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY5NDE0NjAsImV4cCI6MTU4Njk0MTc2MH0.MyTuOOVvHmxSATZN-LJ_ZoieD9wLPxMaOwd2QV6M_tM
+Content-Type: application/json
+
+{
+    "text": "9999年"
+}
+
+###
+DELETE http://localhost:7700/example/AFB1C2E4F3258E6FA37571625DC5EB96/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODY5MzkzOTksImV4cCI6MTU4NjkzOTY5OX0.bEY9h1txQ52-oWjjJvML8IZ1HGmNIbFd5FLFeuvTvBI
