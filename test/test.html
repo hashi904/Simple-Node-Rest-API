@@ -28,7 +28,7 @@
 <div>
     <button id = "get_all_record">get all record</button>
     <div>
-        <p id="get_all_record_console"></p>
+        <div id="get_all_record_console"></div>
     </div>
 </div>
 <h2>GET(ONE RECORD)</h2>
@@ -84,7 +84,25 @@ $('#sign_in').click(function() {
     })
 });
 //get(all record)
-
+$('#get_all_record').click(function() {
+    fetch('http://localhost:7700/example/', {
+        method : 'GET',
+        headers : new Headers({ "Authorization": `Bearer ${sessionStorage.getItem('token')}` })
+    })
+    .then(function(response) {
+        //return http response
+        return response.json();
+    })
+    .then(function(response_json) {
+        $('#get_all_record_console').empty();
+        for(let i =0;i<response_json.length;i++){
+            $('#get_all_record_console').append(`<p>${response_json[i].id}</p><p>${response_json[i].text}</p>`);
+        }
+    })
+    .catch(function(error){
+        $('#get_all_record_console').text('false');
+    })
+});
 </script>
 </body>
 </html>
