@@ -42,20 +42,19 @@
 <h2>POST</h2>
 <div>
     <input id = "post_text" placeholder="text">
-    <button id = "post_record">get one record</button>
+    <button id = "post_record">post</button>
     <div id="post_status"></div>
 </div>
 <h2>PATCH</h2>
-    <input id = "patch_text" placeholder="patch" >
-    <button id = "patch_record">get one record</button>
+    <input id = "patch_id" placeholder="patch id" value="D3FF8E134E4C73C2B1A667F26D7A8E07" >
+    <input id = "patch_text" placeholder="patch text" >
+    <button id = "patch_record">patch</button>
+    <div id="patch_status"></div>
 <h2>DELETE</h2>
 <div>
-    <p>DELETE</p>
-    <input id="delete_record_id" placeholder="id">
-    <button id = "delete_one_record">delete one record</button>
-    <div>
-        <p id="delete_one_record_status"></p>
-    </div>
+    <input id = "delete_id" placeholder="delete id" value="5C0DC9E3824428352895D4361AF67035" >
+    <button id = "delete_one_record">delete</button>
+    <div id="delete_one_record_status"></div>
 </div>
 </main>
 <script>
@@ -100,6 +99,7 @@ $('#get_all_record').click(function() {
         }
     })
     .catch(function(error){
+        $('#get_all_record_console').empty();
         $('#get_all_record_console').text('false');
     })
 });
@@ -120,6 +120,7 @@ $('#get_one_record').click(function() {
         $('#get_one_record_console').append(`<p>${response_json[0].id}</p><p>${response_json[0].text}</p>`);
     })
     .catch(function(error){
+        $('#get_one_record_console').empty();
         $('#get_one_record_console').text('false');
     })
 });
@@ -142,7 +143,52 @@ $('#post_record').click(function() {
         response.json();
     })
     .catch(function(error){
+        $('#post_status').empty();
         $('#post_status').text('false');
+    })
+});
+
+//patch 
+$('#patch_record').click(function() {
+    const URI = $('#patch_id').val();
+    const obj = {text: $('#patch_text').val()};
+    fetch(`http://localhost:7700/example/${URI}/`, {
+        method : 'PATCH',
+        headers : new Headers({
+            "Authorization": `Bearer ${sessionStorage.getItem('token')}`,
+            "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(obj)
+    })
+    .then(function(response) {
+        //return http response
+        $('#patch_status').empty();
+        $('#patch_status').append(`<p>OK</p>`);
+        return
+    })
+    .catch(function(error){
+        $('#patch_status').empty();
+        $('#patch_status').text('false');
+    })
+});
+
+//delete
+$('#delete_one_record').click(function() {
+    const URI = $('#delete_id').val();
+    fetch(`http://localhost:7700/example/${URI}/`, {
+        method : 'DELETE',
+        headers : new Headers({
+            "Authorization": `Bearer ${sessionStorage.getItem('token')}`})
+    })
+    .then(function(response) {
+        //return http response
+        $('#delete_one_record_status').empty();
+        $('#delete_one_record_status').append(`<p>OK</p>`);
+        return
+    })
+    .catch(function(error){
+        $('#delete_one_record_status').empty();
+        $('#delete_one_record_status').text('false');
     })
 });
 </script>
