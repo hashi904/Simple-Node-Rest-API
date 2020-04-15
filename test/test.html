@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>タイトル</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+<main>
+<h1>Node Rest API Request TEST</h1>
+<h2>Sign in</h2>
+<div>
+    <div>
+        <input type="text" id="user_name" size="40" value="user0">
+    </div>
+    <div>
+        <input type="password" id="pass" size="40" value="pass0">
+    </div>
+    <button id = "sign_in">sign in</button>
+    <div>
+        <p id="sign_in_status"></p>
+    </div>
+</div>
+<h2>GET(ALL RECORD)</h2>
+<div>
+    <button id = "get_all_record">get all record</button>
+    <div>
+        <p id="get_all_record_console"></p>
+    </div>
+</div>
+<h2>GET(ONE RECORD)</h2>
+<div>
+    <input id="get_one_record" placeholder="id"></input>
+    <button id = "get_one_record">get one record</button>
+    <div>
+        <p id="get_one_record_console"></p>
+    </div>
+</div>
+<h2>POST</h2>
+<div>
+    <input id = "post_text" placeholder="text">
+    <button id = "post_record">get one record</button>
+    <div id="post_status"></div>
+</div>
+<h2>PATCH</h2>
+    <input id = "patch_text" placeholder="patch" >
+    <button id = "patch_record">get one record</button>
+<h2>DELETE</h2>
+<div>
+    <p>DELETE</p>
+    <input id="delete_record_id" placeholder="id">
+    <button id = "delete_one_record">delete one record</button>
+    <div>
+        <p id="delete_one_record_status"></p>
+    </div>
+</div>
+</main>
+<script>
+// sign in
+$('#sign_in').click(function() {
+    const user = $('#user_name').val().toString();
+    const pass = $('#pass').val().toString();
+    fetch('http://localhost:7700/user_authentication/', {
+        method : 'POST',
+        headers : new Headers({ "Content-type" : "application/json"}),
+        body : JSON.stringify({ user : user, pass : pass })
+    })
+    .then(function(response) {
+        //return http response
+        return response.json();
+    })
+    .then(function(response_json) {
+        const token = response_json.token;
+        //sessionStrageに保存
+        sessionStorage.token = token;
+        $('#sign_in_status').text('get token');
+        console.log("session_storageからget::"+sessionStorage.getItem('token'));
+    })
+    .catch(function(error){
+        $('#sign_in_status').text('mistake user or pass');
+    })
+});
+//get(all record)
+
+</script>
+</body>
+</html>
