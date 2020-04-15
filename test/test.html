@@ -33,7 +33,7 @@
 </div>
 <h2>GET(ONE RECORD)</h2>
 <div>
-    <input id="get_one_record" placeholder="id"></input>
+    <input id="get_one_record_input" placeholder="id" value="11C7D9C9B9175087A7A2F0FC37033349"></input>
     <button id = "get_one_record">get one record</button>
     <div>
         <p id="get_one_record_console"></p>
@@ -77,12 +77,12 @@ $('#sign_in').click(function() {
         //sessionStrageに保存
         sessionStorage.token = token;
         $('#sign_in_status').text('get token');
-        console.log("session_storageからget::"+sessionStorage.getItem('token'));
     })
     .catch(function(error){
         $('#sign_in_status').text('mistake user or pass');
     })
 });
+
 //get(all record)
 $('#get_all_record').click(function() {
     fetch('http://localhost:7700/example/', {
@@ -101,6 +101,26 @@ $('#get_all_record').click(function() {
     })
     .catch(function(error){
         $('#get_all_record_console').text('false');
+    })
+});
+
+//get(one record)
+$('#get_one_record').click(function() {
+    const URI = $('#get_one_record_input').val();
+    fetch(`http://localhost:7700/example/${URI}/`, {
+        method : 'GET',
+        headers : new Headers({"Authorization": `Bearer ${sessionStorage.getItem('token')}`})
+    })
+    .then(function(response) {
+        //return http response
+        return response.json();
+    })
+    .then(function(response_json) {
+        $('#get_one_record_console').empty();
+        $('#get_one_record_console').append(`<p>${response_json[0].id}</p><p>${response_json[0].text}</p>`);
+    })
+    .catch(function(error){
+        $('#get_one_record_console').text('false');
     })
 });
 </script>
