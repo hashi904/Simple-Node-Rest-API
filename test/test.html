@@ -123,6 +123,28 @@ $('#get_one_record').click(function() {
         $('#get_one_record_console').text('false');
     })
 });
+
+//post
+$('#post_record').click(function() {
+    const obj = {text: $('#post_text').val()};
+    fetch('http://localhost:7700/example/', {
+        method : 'POST',
+        headers : new Headers({
+            "Authorization": `Bearer ${sessionStorage.getItem('token')}`,
+            "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(obj)
+    })
+    .then(function(response) {
+        //return http response
+        $('#post_status').empty();
+        $('#post_status').append('<p>OK</p>');
+        response.json();
+    })
+    .catch(function(error){
+        $('#post_status').text('false');
+    })
+});
 </script>
 </body>
 </html>
