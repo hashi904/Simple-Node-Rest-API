@@ -1,31 +1,19 @@
-# READ ME 
-## If you start app 
-node index.js
+# READ ME  
+## Starting App  
+node index.js  
+(debug: nodemon index.js)  
+Access http://localhost:7700  
 
-(debug: nodemon index.js)
+## Library List  
+npm install nodemon  
+npm install epxress  
+npm install pg  
+npm install jsonwebtoken  
+npm install cors  
+npm install dotenv  
 
-And you can access localhost:7700.
+## debbug  
+node --inspect-brk index.js  
 
-
-## Using Library
-npm install nodemon 
-
-npm install epxress 
-
-npm install pg 
-
-npm install xpath 
-
-npm install xmldom 
-
-npm install jsonwebtoken
-
-npm install cors
-
-
-## debbug 
-node --inspect-brk index.js
-
-## config 
-
-token keeps 5 minutes 
+## config  
+token keeps 5 minutes  
