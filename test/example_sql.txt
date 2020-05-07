@@ -1,0 +1,5 @@
+createdb wepsdb
+psql -h localhost -p 5432 -U root -d wepsdb
+create SCHEMA apps_schema;
+set search_path to apps_schema;
+CREATE TABLE blog (id varchar(13), title varchar(40),article varchar(160));
