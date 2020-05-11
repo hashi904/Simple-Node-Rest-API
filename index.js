@@ -3,6 +3,19 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const log4js = require('log4js')
+
+//logger config level(trace, warn, error)
+log4js.configure({
+    appenders: {
+        system: {type: 'file', filename: './log/system.log'}
+    },
+    categories: {
+        default: {appenders: ['system'], level: 'trace'},
+    }
+});
+//'system' is setting default:{appenders: ~}
+const logger = log4js.getLogger('system');
 
 //Midleware
 app.use(bodyParser.json());
@@ -20,4 +33,4 @@ app.use('/example', exmaple_query);
 const port = process.env.PORT || 7700;
 
 //inform the port number in console
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(port, () => logger.info(`Listening on port ${port}...`));
