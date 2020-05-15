@@ -1,3 +1,108 @@
-[2020-05-12T08:08:52.169] [INFO] system - Listening on port 7700...
-[2020-05-12T08:15:03.386] [INFO] system - Listening on port 7700...
-[2020-05-12T08:16:52.845] [INFO] system - Listening on port 7700...
+[2020-05-16T07:36:05.124] [ERROR] system - { error: value too long for type character varying(32)
+    at Connection.parseE (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:600:48)
+    at Connection.parseMessage (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:399:19)
+    at Socket.<anonymous> (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:115:22)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+  name: 'error',
+  length: 98,
+  severity: 'ERROR',
+  code: '22001',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'varchar.c',
+  line: '636',
+  routine: 'varchar' }
+[2020-05-16T07:36:39.579] [ERROR] system - { error: value too long for type character varying(32)
+    at Connection.parseE (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:600:48)
+    at Connection.parseMessage (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:399:19)
+    at Socket.<anonymous> (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:115:22)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+  name: 'error',
+  length: 98,
+  severity: 'ERROR',
+  code: '22001',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'varchar.c',
+  line: '636',
+  routine: 'varchar' }
+[2020-05-16T08:47:31.359] [ERROR] system - { error: value too long for type character varying(32)
+    at Connection.parseE (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:600:48)
+    at Connection.parseMessage (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:399:19)
+    at Socket.<anonymous> (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:115:22)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+  name: 'error',
+  length: 98,
+  severity: 'ERROR',
+  code: '22001',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'varchar.c',
+  line: '636',
+  routine: 'varchar' }
+[2020-05-16T08:55:46.283] [ERROR] system - { error: value too long for type character varying(32)
+    at Connection.parseE (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:600:48)
+    at Connection.parseMessage (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:399:19)
+    at Socket.<anonymous> (/Users/hashimoto_keisuke/nodeApp/weps_node_rest/node_modules/pg/lib/connection.js:115:22)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+  name: 'error',
+  length: 98,
+  severity: 'ERROR',
+  code: '22001',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'varchar.c',
+  line: '636',
+  routine: 'varchar' }
