@@ -7,6 +7,19 @@ const express = require('express');
 const router = express.Router();
 const Pool = require('pg').Pool;
 const jwt = require("jsonwebtoken");
+const log4js = require('log4js')
+
+//logger config level(trace, warn, error) ファイル名を日付にする
+log4js.configure({
+    appenders: {
+        system: {type: 'file', filename: './log/system.log'}
+    },
+    categories: {
+        default: {appenders: ['system'], level: 'trace'},
+    }
+});
+//'system' is setting default:{appenders: ~}
+const logger = log4js.getLogger('system');
 
 //database connection setting
 const pool = new Pool({
@@ -35,7 +48,8 @@ router.get('/', (req, res)=>{
             }
             pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\"`, (err, results) => {
                 if(err){
-                    throw err;
+                    logger.error(err);
+                    return res.status(400).json(err.toString());
                 }
                 res.status(200).json(results.rows);
             });
@@ -62,7 +76,8 @@ router.get('/:postId', (req, res)=>{
             }
             pool.query(`SELECT * FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
                 if(err){
-                    throw err;
+                    logger.error(err);
+                    return res.status(400).json(err.toString());
                 }
                 res.status(200).json(results.rows);
             });
@@ -100,7 +115,8 @@ router.post('/', (req, res) => {
             }
             pool.query(`INSERT INTO \"${schema_name}\".\"${table_name}\" VALUES ($1, $2)`,[id, text], (err, results) => {
                 if(err){
-                    throw err;
+                    logger.error(err);
+                    return res.status(400).json(err.toString());
                 }
                 res.sendStatus(201);
             });
@@ -127,7 +143,8 @@ router.delete('/:postId', (req, res)=>{
             }
             pool.query(`DELETE FROM \"${schema_name}\".\"${table_name}\" WHERE id = \'${postId}\'`, (err, results) => {
                 if(err){
-                    res.json({message: err});
+                    logger.error(err);
+                    return res.status(400).json(err.toString());
                 }
                 res.sendStatus(200);
             });
@@ -161,7 +178,8 @@ router.patch('/:postId', (req, res)=>{
             }
             pool.query(`UPDATE \"${schema_name}\".\"${table_name}\" SET text = \'${text}\' WHERE id = \'${postId}\'`, (err, results) => {
                 if(err){
-                    res.json({message: err});
+                    logger.error(err);
+                    return res.status(400).json(err.toString());
                 }
                 res.sendStatus(200);
             });
