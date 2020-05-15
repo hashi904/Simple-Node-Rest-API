@@ -12,10 +12,10 @@ const log4js = require('log4js')
 //logger config level(trace, warn, error) ファイル名を日付にする
 log4js.configure({
     appenders: {
-        system: {type: 'file', filename: './log/system.log'}
+        system: {type: 'datefile', filename: './log/system.log', pattern: '-yyyy-MM-dd' }
     },
     categories: {
-        default: {appenders: ['system'], level: 'trace'},
+        default: {appenders: ['system'], level: 'error'},
     }
 });
 //'system' is setting default:{appenders: ~}
