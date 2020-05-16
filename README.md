@@ -17,3 +17,4 @@ node --inspect-brk index.js
 
 ## config  
 token keeps 5 minutes  
+log file complesses as .gz extention and deletes after 5days later.
