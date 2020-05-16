@@ -1,13 +1,13 @@
 //example query file
 //reading .env file
-require('dotenv').config()
+require('dotenv').config();
 
 // import library
 const express = require('express');
 const router = express.Router();
 const Pool = require('pg').Pool;
 const jwt = require("jsonwebtoken");
-const log4js = require('log4js')
+const log4js = require('log4js');
 
 //logger config level(trace, warn, error)
 log4js.configure({
