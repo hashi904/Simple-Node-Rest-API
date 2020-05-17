@@ -27,4 +27,5 @@ app.use('/example', exmaple_query);
 const port = process.env.PORT || 7700;
 
 //inform the port number in log file(if you set log file config as trace..)
-app.listen(port, () => logger.info(`Listening on port ${port}...`));
+const server = app.listen(port, () => logger.info(`Listening on port ${port}...`));
+module.exports = server;
