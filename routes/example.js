@@ -105,7 +105,7 @@ router.post('/', (req, res) => {
             }
             //we don't permit empty 
             if(!text){
-                throw("not empty");
+                return res.status(400).json("not empty");
             }
             pool.query(`INSERT INTO \"${schema_name}\".\"${table_name}\" VALUES ($1, $2)`,[id, text], (err, results) => {
                 if(err){
@@ -168,7 +168,7 @@ router.patch('/:postId', (req, res)=>{
             }
             //we don't permit empty 
             if(!text){
-                throw("not empty");
+                return res.status(400).json("not empty");
             }
             pool.query(`UPDATE \"${schema_name}\".\"${table_name}\" SET text = \'${text}\' WHERE id = \'${postId}\'`, (err, results) => {
                 if(err){
