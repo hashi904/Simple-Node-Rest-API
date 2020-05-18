@@ -1,4 +1,6 @@
 # READ ME  
+This is REST API using Node.js(Express).  
+And test code is using Jest(JavaScript Test FrameWork).  
 ## Starting App  
 node index.js  
 (debug: nodemon index.js)  
@@ -18,7 +20,9 @@ npm install supertest
 node --inspect-brk index.js  
 
 ## execute test code  
-(Before you execute test code, you need to add {"test": "jest"} 
+Before you execute test code,  
+you need to add  
+{"test": "jest"}  
 and 
 "jest": {  
     "testEnvironment": "node",  
@@ -27,10 +31,12 @@ and
     ]  
 }  
 in package.json.  
+
+And execute this command in terminal.  
 yarn test  
 or  
 npm test  
 
 ## config  
 token keeps 5 minutes  
-log file complesses as .gz extention and deletes after 5days later.
+log file complesses as .gz extention and deletes after 5days later.  
