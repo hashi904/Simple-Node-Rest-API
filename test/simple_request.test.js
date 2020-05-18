@@ -69,4 +69,59 @@ describe('example.jsのリクエストのテスト', () => {
         });
 
     });
+
+    describe('異常系テスト(異常データの送信)', () => {
+        //patchテスト用にrecord idを取得
+        beforeAll((done) => {
+            request(server)
+            .get('/example')
+            .set('Authorization', `Bearer ${token}`)
+            .end((err, response) => {
+                last_record_id = response.body[response.body.length-1].id; // save the last record id
+                done();
+            });
+        });
+
+        it('間違ったユーザー名、パスワードを入れてログイン',async ()=>{
+            const user = {"user": "user1","pass": "pass1"};
+            const res = await (await request(server).post('/user_authentication').send(user));
+            expect(res.status).toBe(401);
+        });
+
+        it('文字を空にしてデータを送信(post)',async ()=>{
+            const post_json = {"text": ""};
+            const res = await request(server)
+            .post('/example')
+            .set('Authorization', `Bearer ${token}`)
+            .send(post_json);
+            expect(res.status).toBe(400);
+        });
+
+        it('指定文字数を超えるデータを送信(post)',async ()=>{
+            const post_json = {"text": "hoge_hoge_hoge_hoge_hoge_hoge_hogehoge_hoge_hoge"};
+            const res = await request(server)
+            .post('/example')
+            .set('Authorization', `Bearer ${token}`)
+            .send(post_json);
+            expect(res.status).toBe(400);
+        });
+
+        it('文字を空にして更新データを送信(patch)',async ()=>{
+            const post_json = {"text": ""};
+            const res = await request(server)
+            .patch(`/example/${last_record_id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .send(post_json);
+            expect(res.status).toBe(400);
+        });
+
+        it('指定文字数を超える更新データを送信(patch)',async ()=>{
+            const post_json = {"text": "hoge_hoge_hoge_hoge_hoge_hoge_hogehoge_hoge_hoge"};
+            const res = await request(server)
+            .patch(`/example/${last_record_id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .send(post_json);
+            expect(res.status).toBe(400);
+        });
+    });
 });
