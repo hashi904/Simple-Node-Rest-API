@@ -175,7 +175,7 @@ router.patch('/:postId', (req, res)=>{
                     logger.error(err);
                     return res.status(400).json(err.toString());
                 }
-                res.sendStatus(200);
+                res.sendStatus(201);
             });
         }); 
     }catch(err){
