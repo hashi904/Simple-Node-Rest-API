@@ -23,7 +23,7 @@ describe('example.jsのリクエストのテスト', () => {
     describe('正常系テスト', () => {
         it('ログイン',async ()=>{
             const user = {"user": "user0","pass": "pass0"};
-            const res = await (await request(server).post('/user_authentication').send(user));
+            const res = await request(server).post('/user_authentication').send(user);
             expect(res.status).toBe(200);
         });
 
@@ -84,7 +84,7 @@ describe('example.jsのリクエストのテスト', () => {
 
         it('間違ったユーザー名、パスワードを入れてログイン',async ()=>{
             const user = {"user": "user1","pass": "pass1"};
-            const res = await (await request(server).post('/user_authentication').send(user));
+            const res = await request(server).post('/user_authentication').send(user);
             expect(res.status).toBe(401);
         });
 
