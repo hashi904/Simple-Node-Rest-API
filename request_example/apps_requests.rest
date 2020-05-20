@@ -1,0 +1,43 @@
+
+# REQUEST EXAMPLE
+POST http://localhost:7700/user_authentication/
+Content-Type: application/json
+
+{
+    "user": "user0",
+    "pass": "pass0"
+}
+
+###
+
+GET http://localhost:7700/apps_request/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODk5NjUxODAsImV4cCI6MTU4OTk2NTQ4MH0.uS-TEOnUWiR9c8HK7vj-39UqVxPReZNbRYhrmf5ODgg
+
+###
+
+GET http://localhost:7700/apps_request/75B9BC85C1C69ADE54FB4CEFAA74613E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODk5NjUxODAsImV4cCI6MTU4OTk2NTQ4MH0.uS-TEOnUWiR9c8HK7vj-39UqVxPReZNbRYhrmf5ODgg
+
+###
+POST http://localhost:7700/apps_request/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODk5NjUyNTUsImV4cCI6MTU4OTk2NTU1NX0.3Eo2RdzOJebH4Ef266WUgbG9LK5Ktxb_N_Tcq0CCAV0
+Content-Type: application/json
+
+{
+    "text1": "東京",
+    "text2": "名古屋",
+    "text3": "大阪"
+}
+
+###
+PATCH http://localhost:7700/apps_request/75B9BC85C1C69ADE54FB4CEFAA74613E/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODk5NjUxODAsImV4cCI6MTU4OTk2NTQ4MH0.uS-TEOnUWiR9c8HK7vj-39UqVxPReZNbRYhrmf5ODgg
+Content-Type: application/json
+
+{
+    "text": "東京都"
+}
+
+###
+DELETE http://localhost:7700/apps_request/75B9BC85C1C69ADE54FB4CEFAA74613E/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjAiLCJpYXQiOjE1ODk5NjUxODAsImV4cCI6MTU4OTk2NTQ4MH0.uS-TEOnUWiR9c8HK7vj-39UqVxPReZNbRYhrmf5ODgg

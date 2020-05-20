@@ -3,3 +3,7 @@ psql -h localhost -p 5432 -U root -d wepsdb
 create SCHEMA apps_schema;
 set search_path to apps_schema;
 CREATE TABLE blog (id varchar(13), title varchar(40),article varchar(160));
+
+create SCHEMA "2983EF607EE549399932EE9B472B0415";
+set search_path to "2983EF607EE549399932EE9B472B0415";
+CREATE TABLE "7414942E8CBC4E1E90238C15FF62BBE2" ("ID" varchar(32), "001_shorttext" varchar(40),"002_shorttext" varchar(40),"003_shorttext" varchar(40));

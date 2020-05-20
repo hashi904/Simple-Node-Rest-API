@@ -23,6 +23,10 @@ app.use('/user_authentication', user_authenticationRoute);
 const exmaple_query = require('./routes/example');
 app.use('/example', exmaple_query);
 
+//apps routes
+const apps_query = require('./routes/apps_request');
+app.use('/apps_request', apps_query);
+
 // setting port (=7700)
 const port = process.env.PORT || 7700;
 
